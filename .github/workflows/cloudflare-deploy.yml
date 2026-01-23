@@ -57,52 +57,52 @@ jobs:
         run: |
           # 设置运行时环境变量到 Cloudflare
           if [ -n "${{ secrets.USERNAME }}" ]; then
-            echo "${{ secrets.USERNAME }}" | pnpm wrangler secret put USERNAME
+            echo "${{ secrets.USERNAME }}" | npx wrangler secret put USERNAME
           fi
           if [ -n "${{ secrets.PASSWORD }}" ]; then
-            echo "${{ secrets.PASSWORD }}" | pnpm wrangler secret put PASSWORD
+            echo "${{ secrets.PASSWORD }}" | npx wrangler secret put PASSWORD
           fi
           if [ -n "${{ secrets.UPSTASH_URL }}" ]; then
-            echo "${{ secrets.UPSTASH_URL }}" | pnpm wrangler secret put UPSTASH_URL
+            echo "${{ secrets.UPSTASH_URL }}" | npx wrangler secret put UPSTASH_URL
           fi
           if [ -n "${{ secrets.UPSTASH_TOKEN }}" ]; then
-            echo "${{ secrets.UPSTASH_TOKEN }}" | pnpm wrangler secret put UPSTASH_TOKEN
+            echo "${{ secrets.UPSTASH_TOKEN }}" | npx wrangler secret put UPSTASH_TOKEN
           fi
           if [ -n "${{ secrets.TMDB_API_KEY }}" ]; then
-            echo "${{ secrets.TMDB_API_KEY }}" | pnpm wrangler secret put TMDB_API_KEY
+            echo "${{ secrets.TMDB_API_KEY }}" | npx wrangler secret put TMDB_API_KEY
           fi
           if [ -n "${{ secrets.TMDB_PROXY }}" ]; then
-            echo "${{ secrets.TMDB_PROXY }}" | pnpm wrangler secret put TMDB_PROXY
+            echo "${{ secrets.TMDB_PROXY }}" | npx wrangler secret put TMDB_PROXY
           fi
           if [ -n "${{ secrets.TMDB_REVERSE_PROXY }}" ]; then
-            echo "${{ secrets.TMDB_REVERSE_PROXY }}" | pnpm wrangler secret put TMDB_REVERSE_PROXY
+            echo "${{ secrets.TMDB_REVERSE_PROXY }}" | npx wrangler secret put TMDB_REVERSE_PROXY
           fi
           if [ -n "${{ secrets.DANMAKU_API_BASE }}" ]; then
-            echo "${{ secrets.DANMAKU_API_BASE }}" | pnpm wrangler secret put DANMAKU_API_BASE
+            echo "${{ secrets.DANMAKU_API_BASE }}" | npx wrangler secret put DANMAKU_API_BASE
           fi
           if [ -n "${{ secrets.DANMAKU_API_TOKEN }}" ]; then
-            echo "${{ secrets.DANMAKU_API_TOKEN }}" | pnpm wrangler secret put DANMAKU_API_TOKEN
+            echo "${{ secrets.DANMAKU_API_TOKEN }}" | npx wrangler secret put DANMAKU_API_TOKEN
           fi
           if [ -n "${{ secrets.ANNOUNCEMENT }}" ]; then
-            echo "${{ secrets.ANNOUNCEMENT }}" | pnpm wrangler secret put ANNOUNCEMENT
+            echo "${{ secrets.ANNOUNCEMENT }}" | npx wrangler secret put ANNOUNCEMENT
           fi
           if [ -n "${{ secrets.CRON_PASSWORD }}" ]; then
-            echo "${{ secrets.CRON_PASSWORD }}" | pnpm wrangler secret put CRON_PASSWORD
+            echo "${{ secrets.CRON_PASSWORD }}" | npx wrangler secret put CRON_PASSWORD
           fi
           if [ -n "${{ secrets.SITE_BASE }}" ]; then
-            echo "${{ secrets.SITE_BASE }}" | pnpm wrangler secret put SITE_BASE
+            echo "${{ secrets.SITE_BASE }}" | npx wrangler secret put SITE_BASE
           fi
           if [ -n "${{ secrets.REDIS_URL }}" ]; then
-            echo "${{ secrets.REDIS_URL }}" | pnpm wrangler secret put REDIS_URL
+            echo "${{ secrets.REDIS_URL }}" | npx wrangler secret put REDIS_URL
           fi
           if [ -n "${{ secrets.KVROCKS_URL }}" ]; then
-            echo "${{ secrets.KVROCKS_URL }}" | pnpm wrangler secret put KVROCKS_URL
+            echo "${{ secrets.KVROCKS_URL }}" | npx wrangler secret put KVROCKS_URL
           fi
           if [ -n "${{ secrets.INIT_CONFIG }}" ]; then
-            echo "${{ secrets.INIT_CONFIG }}" | pnpm wrangler secret put INIT_CONFIG
+            echo "${{ secrets.INIT_CONFIG }}" | npx wrangler secret put INIT_CONFIG
           fi
           if [ -n "${{ secrets.CONFIG_SUBSCRIPTION_URL }}" ]; then
-            echo "${{ secrets.CONFIG_SUBSCRIPTION_URL }}" | pnpm wrangler secret put CONFIG_SUBSCRIPTION_URL
+            echo "${{ secrets.CONFIG_SUBSCRIPTION_URL }}" | npx wrangler secret put CONFIG_SUBSCRIPTION_URL
           fi
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
