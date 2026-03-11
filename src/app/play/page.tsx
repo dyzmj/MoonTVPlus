@@ -1420,10 +1420,13 @@ function PlayPageClient() {
       return;
     }
 
-    if (currentSource === 'directplay') {
+    // 简单的正则或者后缀判断，如果明确不是 m3u8 (比如 mp4)，则不走 m3u8 代理
+    const isM3u8 = episodeUrl.toLowerCase().includes('.m3u') || !episodeUrl.toLowerCase().match(/\.(mp4|flv|webm|mkv|avi|mov)(\?.*)?$/);
+
+    if (currentSource === 'directplay' && isM3u8) {
       const tokenParam = proxyToken ? `&token=${encodeURIComponent(proxyToken)}` : '';
       episodeUrl = `/api/proxy-m3u8?url=${encodeURIComponent(episodeUrl)}&source=directplay${tokenParam}`;
-    } else if (sourceProxyMode) {
+    } else if (sourceProxyMode && isM3u8) {
       episodeUrl = `/api/proxy/vod/m3u8?url=${encodeURIComponent(episodeUrl)}&source=${encodeURIComponent(currentSource)}`;
     }
 
@@ -1482,10 +1485,11 @@ function PlayPageClient() {
                 : source.episodes[0];
 
             // 对优选源进行测速时也需要考虑代理情况
-            if (source.source === 'directplay') {
+            const isM3u8 = episodeUrl.toLowerCase().includes('.m3u') || !episodeUrl.toLowerCase().match(/\.(mp4|flv|webm|mkv|avi|mov)(\?.*)?$/);
+            if (source.source === 'directplay' && isM3u8) {
               const tokenParam = proxyToken ? `&token=${encodeURIComponent(proxyToken)}` : '';
               episodeUrl = `/api/proxy-m3u8?url=${encodeURIComponent(episodeUrl)}&source=directplay${tokenParam}`;
-            } else if (source.proxyMode) {
+            } else if (source.proxyMode && isM3u8) {
               episodeUrl = `/api/proxy/vod/m3u8?url=${encodeURIComponent(episodeUrl)}&source=${encodeURIComponent(source.source)}`;
             }
 
@@ -2181,15 +2185,22 @@ function PlayPageClient() {
         // 使用本地代理接口,URL以.m3u8结尾以便Artplayer自动识别
         newUrl = `/api/offline-download/local/${currentSource}/${currentId}/${episodeIndex}/playlist.m3u8`;
         console.log('使用服务器端本地下载文件播放:', newUrl);
-      } else if (sourceProxyMode && newUrl) {
-        // 如果视频源启用了代理模式,且不是本地下载,则通过代理播放
-        newUrl = `/api/proxy/vod/m3u8?url=${encodeURIComponent(newUrl)}&source=${encodeURIComponent(currentSource)}`;
-        console.log('使用代理模式播放:', newUrl);
-      } else if (currentSource === 'directplay' && newUrl) {
-        // 直链播放模式：通过 proxy-m3u8 代理播放，避免 CORS 问题
-        const tokenParam = proxyToken ? `&token=${encodeURIComponent(proxyToken)}` : '';
-        newUrl = `/api/proxy-m3u8?url=${encodeURIComponent(newUrl)}&source=directplay${tokenParam}`;
-        console.log('直链播放使用代理模式:', newUrl);
+      } else {
+        const isM3u8 = newUrl.toLowerCase().includes('.m3u') || !newUrl.toLowerCase().match(/\.(mp4|flv|webm|mkv|avi|mov)(\?.*)?$/);
+
+        if (sourceProxyMode && newUrl && isM3u8) {
+          // 如果视频源启用了代理模式,且不是本地下载,则通过代理播放
+          newUrl = `/api/proxy/vod/m3u8?url=${encodeURIComponent(newUrl)}&source=${encodeURIComponent(currentSource)}`;
+          console.log('使用代理模式播放:', newUrl);
+        } else if (currentSource === 'directplay' && newUrl && isM3u8) {
+          // 直链播放模式：通过 proxy-m3u8 代理播放，避免 CORS 问题
+          const tokenParam = proxyToken ? `&token=${encodeURIComponent(proxyToken)}` : '';
+          newUrl = `/api/proxy-m3u8?url=${encodeURIComponent(newUrl)}&source=directplay${tokenParam}`;
+          console.log('直链播放使用代理模式:', newUrl);
+        } else if (!isM3u8) {
+          console.log('非 m3u8 格式，豁免代理框架，直接播放原始URL:', newUrl);
+          // 在豁免代理时也必须确保变量被赋给播放源
+        }
       }
     }
 
