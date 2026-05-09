@@ -60,6 +60,38 @@ interface DbRecord {
   songmid?: string;
 }
 
+function MusicLoadingIndicator({
+  text,
+  size = 'md',
+  className = '',
+}: {
+  text?: string;
+  size?: 'sm' | 'md';
+  className?: string;
+}) {
+  const iconSize = size === 'sm' ? 'w-4 h-4' : 'w-5 h-5';
+  const textSize = size === 'sm' ? 'text-xs' : 'text-sm';
+
+  return (
+    <div className={`flex items-center justify-center gap-3 text-zinc-400 ${className}`}>
+      <div className="flex items-end gap-1.5">
+        {[0, 1, 2].map((index) => (
+          <svg
+            key={index}
+            className={`${iconSize} text-green-400`}
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            style={{ animation: `music-note-bounce 0.9s ease-in-out ${index * 0.14}s infinite` }}
+          >
+            <path d="M12 3v11.55A3.98 3.98 0 0010 14c-2.21 0-4 1.34-4 3s1.79 3 4 3 4-1.34 4-3V8h4V3h-6z" />
+          </svg>
+        ))}
+      </div>
+      {text ? <span className={`${textSize} font-medium tracking-wide`}>{text}</span> : null}
+    </div>
+  );
+}
+
 // 扩展 Window 接口以支持 Document PiP API
 declare global {
   interface Window {
@@ -1499,6 +1531,19 @@ export default function MusicPage() {
   return (
     <div className="music-theme min-h-screen bg-zinc-950 text-white">
       <>
+      <style jsx>{`
+        @keyframes music-note-bounce {
+          0%,
+          100% {
+            transform: translateY(0);
+            opacity: 0.55;
+          }
+          50% {
+            transform: translateY(-8px);
+            opacity: 1;
+          }
+        }
+      `}</style>
       {resolvingCount > 0 && (
         <div className="fixed top-4 right-4 z-[80] pointer-events-none">
           <div className="relative w-16 h-16 md:w-20 md:h-20">
@@ -1620,7 +1665,7 @@ export default function MusicPage() {
       <main className="pt-[136px] md:pt-[108px] pb-32 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
           {loading && (
-            <div className="text-center text-zinc-500 py-8">加载中...</div>
+            <MusicLoadingIndicator className="py-8" />
           )}
 
           {/* Playlists View */}
@@ -1688,13 +1733,7 @@ export default function MusicPage() {
                   className="px-3 py-1.5 bg-green-600 hover:bg-green-700 disabled:bg-zinc-700 disabled:cursor-not-allowed rounded-lg transition-colors flex items-center gap-2 text-sm text-white shrink-0"
                 >
                   {loadingCurrentPlayAll ? (
-                    <>
-                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      处理中...
-                    </>
+                    <MusicLoadingIndicator size="sm" className="gap-2 text-white" />
                   ) : (
                     <>
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -1775,7 +1814,7 @@ export default function MusicPage() {
                 <div className="bg-zinc-800/50 rounded-xl p-4 border border-white/10">
                   <h2 className="text-lg font-bold mb-4">歌单列表</h2>
                   {loadingUserPlaylists ? (
-                    <div className="text-center py-8 text-zinc-400">加载中...</div>
+                    <MusicLoadingIndicator className="py-8" />
                   ) : userPlaylists.length === 0 ? (
                     <div className="text-center py-8 text-zinc-400">
                       还没有歌单
@@ -1845,13 +1884,7 @@ export default function MusicPage() {
                           className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-zinc-700 disabled:cursor-not-allowed rounded-lg transition-colors flex items-center gap-2"
                         >
                           {loadingPlayAll ? (
-                            <>
-                              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                              </svg>
-                              加载中...
-                            </>
+                            <MusicLoadingIndicator size="sm" className="gap-2 text-white" />
                           ) : (
                             <>
                               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -1882,7 +1915,7 @@ export default function MusicPage() {
                     </div>
 
                     {loadingUserPlaylistSongs ? (
-                      <div className="text-center py-8 text-zinc-400">加载中...</div>
+                      <MusicLoadingIndicator className="py-8" />
                     ) : userPlaylistSongs.length === 0 ? (
                       <div className="text-center py-8 text-zinc-400">歌单为空</div>
                     ) : (
