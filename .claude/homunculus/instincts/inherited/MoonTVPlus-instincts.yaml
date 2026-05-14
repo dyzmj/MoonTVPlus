@@ -1,0 +1,579 @@
+# Instincts generated from https://github.com/dyzmj/MoonTVPlus
+# Generated: 2026-05-14T15:16:42.130Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: MoonTVPlus-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Commit Length
+
+## Action
+
+Keep commit messages concise (~13 characters)
+
+## Evidence
+
+- Average commit message length: 13 chars
+- Based on 26 commits
+
+---
+id: MoonTVPlus-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: MoonTVPlus-import-alias
+trigger: "when importing modules"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Import Alias
+
+## Action
+
+Use path aliases (@/, ~/) instead of relative imports
+
+## Evidence
+
+- Import analysis shows alias pattern
+- Example: import { x } from '@/lib/x'
+
+---
+id: MoonTVPlus-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Export Style
+
+## Action
+
+Prefer mixed exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: mixed
+
+---
+id: MoonTVPlus-arch-type-based
+trigger: "when adding new code"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Arch Type Based
+
+## Action
+
+Place code in the appropriate type folder (components/, services/, utils/, etc.)
+
+## Evidence
+
+- Type-based module organization detected
+- Folders: app, components, lib
+
+---
+id: MoonTVPlus-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: MoonTVPlus-workflow-feature-development-multifile
+trigger: "when doing feature development multifile"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Workflow Feature Development Multifile
+
+## Action
+
+Follow the feature-development-multifile workflow:
+1. Create or update API route files under src/app/api/...
+2. Update or add relevant component files under src/components/ or src/app/[feature]/page.tsx
+3. Update or add supporting library files under src/lib/
+4. Update configuration files if needed (e.g., src/lib/config.ts)
+5. Update types if needed (e.g., src/lib/[feature].types.ts)
+6. Update package.json and lockfile if new dependencies are required
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/app/api/*/route.ts, src/app/[feature]/**/page.tsx, src/components/**.tsx
+
+---
+id: MoonTVPlus-workflow-single-component-ui-enhancement
+trigger: "when doing single component ui enhancement"
+confidence: 0.75
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Workflow Single Component Ui Enhancement
+
+## Action
+
+Follow the single-component-ui-enhancement workflow:
+1. Edit the relevant component or page file under src/components/ or src/app/[feature]/page.tsx
+2. Optionally update related CSS or layout files
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~5x per month
+- Files: src/components/*.tsx, src/app/*/page.tsx, src/app/globals.css
+
+---
+id: MoonTVPlus-workflow-admin-settings-enhancement
+trigger: "when doing admin settings enhancement"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Workflow Admin Settings Enhancement
+
+## Action
+
+Follow the admin-settings-enhancement workflow:
+1. Edit src/app/admin/page.tsx
+2. Create or update related API route files under src/app/api/admin/...
+3. Update supporting types/configuration files under src/lib/
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/app/admin/page.tsx, src/app/api/admin/**/route.ts, src/lib/admin.types.ts
+
+---
+id: MoonTVPlus-workflow-bugfix-library-vendor
+trigger: "when doing bugfix library vendor"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Workflow Bugfix Library Vendor
+
+## Action
+
+Follow the bugfix-library-vendor workflow:
+1. Edit one or more files under src/lib/pancheck/vendor/checkers/
+2. Optionally update src/lib/pancheck/index.ts
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/lib/pancheck/vendor/checkers/*.ts, src/lib/pancheck/index.ts
+
+---
+id: MoonTVPlus-workflow-version-release-update
+trigger: "when doing version release update"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/dyzmj/MoonTVPlus
+---
+
+# MoonTVPlus Workflow Version Release Update
+
+## Action
+
+Follow the version-release-update workflow:
+1. Update CHANGELOG
+2. Update VERSION.txt
+3. Update src/lib/changelog.ts
+4. Update src/lib/version.ts
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: CHANGELOG, VERSION.txt, src/lib/changelog.ts
+
+---
+id: moontvplus-instinct-filename-camelcase
+trigger: "When creating or renaming a file in the codebase."
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Filename Camelcase
+
+## Action
+
+Use camelCase for file names.
+
+## Evidence
+
+- Pattern in namingConventions.files
+- src/components, src/lib files follow camelCase
+
+---
+id: moontvplus-instinct-function-camelcase
+trigger: "When defining a new function."
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Function Camelcase
+
+## Action
+
+Name the function using camelCase.
+
+## Evidence
+
+- Pattern in namingConventions.functions
+
+---
+id: moontvplus-instinct-class-pascalcase
+trigger: "When defining a new class."
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Class Pascalcase
+
+## Action
+
+Name the class using PascalCase.
+
+## Evidence
+
+- Pattern in namingConventions.classes
+
+---
+id: moontvplus-instinct-constant-screaming-snake-case
+trigger: "When declaring a constant."
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Constant Screaming Snake Case
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names.
+
+## Evidence
+
+- Pattern in namingConventions.constants
+
+---
+id: moontvplus-instinct-import-alias
+trigger: "When importing modules."
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Import Alias
+
+## Action
+
+Use import aliases instead of relative paths.
+
+## Evidence
+
+- Pattern in importStyle: alias
+- src imports use aliases
+
+---
+id: moontvplus-instinct-export-mixed
+trigger: "When exporting from a module."
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Export Mixed
+
+## Action
+
+Use both named and default exports as appropriate.
+
+## Evidence
+
+- Pattern in exportStyle: mixed
+
+---
+id: moontvplus-instinct-try-catch-error-handling
+trigger: "When handling errors in code."
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Try Catch Error Handling
+
+## Action
+
+Wrap error-prone code in try-catch blocks.
+
+## Evidence
+
+- Pattern in errorHandling.style: try-catch
+
+---
+id: moontvplus-instinct-global-error-handler
+trigger: "When implementing application-wide error handling."
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Global Error Handler
+
+## Action
+
+Use a global error handler.
+
+## Evidence
+
+- Pattern in errorHandling.globalHandler: true
+
+---
+id: moontvplus-instinct-test-location-separate
+trigger: "When adding or updating tests."
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Test Location Separate
+
+## Action
+
+Place test files in a separate directory, not alongside source files.
+
+## Evidence
+
+- Pattern in architecture.testLocation: separate
+
+---
+id: moontvplus-instinct-test-type-based
+trigger: "When organizing test files."
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Test Type Based
+
+## Action
+
+Organize test files by type (e.g., unit, integration) matching the module organization.
+
+## Evidence
+
+- Pattern in architecture.moduleOrganization: type-based
+
+---
+id: moontvplus-instinct-commit-freeform-chinese
+trigger: "When writing a commit message."
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Commit Freeform Chinese
+
+## Action
+
+Use a freeform, concise message (often in Chinese), without strict prefixes.
+
+## Evidence
+
+- Pattern in commits.type: freeform
+- Examples: 优化漫画展馆和电子书室的历史加载速度
+
+---
+id: moontvplus-instinct-commit-short
+trigger: "When writing a commit message."
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Commit Short
+
+## Action
+
+Keep commit messages short (average ~13 characters).
+
+## Evidence
+
+- Pattern in commits.averageLength: 13
+
+---
+id: moontvplus-instinct-feature-development-multifile
+trigger: "When adding a major new feature or significant enhancement."
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Feature Development Multifile
+
+## Action
+
+Touch multiple files: API routes, components, libraries, config, types, and update dependencies as needed.
+
+## Evidence
+
+- Workflow: feature-development-multifile
+- Example commit/file sequences
+
+---
+id: moontvplus-instinct-single-component-ui-enhancement
+trigger: "When enhancing or fixing a specific UI component or page."
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Single Component Ui Enhancement
+
+## Action
+
+Edit the relevant component/page file and optionally update related CSS/layout files.
+
+## Evidence
+
+- Workflow: single-component-ui-enhancement
+- Example commit/file sequences
+
+---
+id: moontvplus-instinct-admin-settings-enhancement
+trigger: "When adding or changing admin panel features or settings."
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Admin Settings Enhancement
+
+## Action
+
+Edit admin page, related API routes, and supporting types/configuration files.
+
+## Evidence
+
+- Workflow: admin-settings-enhancement
+- Example commit/file sequences
+
+---
+id: moontvplus-instinct-bugfix-library-vendor
+trigger: "When fixing or updating pancheck vendor modules."
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Bugfix Library Vendor
+
+## Action
+
+Edit files under src/lib/pancheck/vendor/checkers/ and optionally update src/lib/pancheck/index.ts.
+
+## Evidence
+
+- Workflow: bugfix-library-vendor
+- Example commit/file sequences
+
+---
+id: moontvplus-instinct-version-release-update
+trigger: "When releasing a new version."
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: dyzmj/MoonTVPlus
+---
+
+# Moontvplus Instinct Version Release Update
+
+## Action
+
+Update CHANGELOG, VERSION.txt, src/lib/changelog.ts, and src/lib/version.ts.
+
+## Evidence
+
+- Workflow: version-release-update
+- Example commit/file sequences
+
